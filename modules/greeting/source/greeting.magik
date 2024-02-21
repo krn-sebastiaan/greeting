@@ -1,0 +1,74 @@
+#%text_encoding=utf8
+_package user
+
+_pragma(classify_level=basic, topic={greeting})
+def_slotted_exemplar(:greeting,
+		     {
+			     {:type, _unset}
+		     })
+$
+
+_pragma(classify_level=basic, topic={greeting})
+greeting.define_slot_access(:type, :writable, :public)
+$
+
+_pragma(classify_level=basic, topic={greeting})
+_method greeting.new(type)
+	_return _clone.init(type)
+_endmethod
+$
+
+_pragma(classify_level=basic, topic={greeting})
+_private _method greeting.init(type)
+	.type << type
+
+	_return _self
+_endmethod
+$
+
+_pragma(classify_level=basic, topic={greeting})
+greeting.define_shared_constant(:greetings,
+	sw:property_list.new_with(
+		:hello,
+		sw:property_list.new_with(
+			:very_formal, "Dear",
+			:formal, "Hello",
+			:neutral, "Hi!",
+			:informal, "Hiya!",
+			:very_informal, "Yo!"),
+		:goodbye,
+		sw:property_list.new_with(
+			:very_formal, "Yours sincerely",
+			:formal, "Kind regards",
+			:neutral, "Goodbye!",
+			:informal, "See ya!",
+			:very_informal, "Cheers!")
+	),
+	:public)
+$
+
+_pragma(classify_level=basic, topic={greeting})
+_method greeting.say_hello(_optional greet?)
+	greeting << _self.greetings[:hello][_self.type].default("")
+
+	_if greet?.default(_true) _then _self.greet(greeting) _endif
+
+	_return greeting
+_endmethod
+$
+
+_pragma(classify_level=basic, topic={greeting})
+_method greeting.say_goodbye(_optional greet?)
+	greeting << _self.greetings[:goodbye][_self.type].default("")
+
+	_if greet?.default(_true) _then _self.greet(greeting) _endif
+
+	_return greeting
+_endmethod
+$
+
+_pragma(classify_level=basic, topic={greeting})
+_private _method greeting.greet(greeting)
+	sw:!output!.write(greeting, %newline)
+_endmethod
+$

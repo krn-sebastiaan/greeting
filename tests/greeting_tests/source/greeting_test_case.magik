@@ -1,0 +1,35 @@
+#%text_encoding=utf8
+_package user
+
+_pragma(classify_level=basic, topic={greeting, tests})
+def_slotted_exemplar(:greeting_test_case, {}, @sw:test_case)
+$
+
+_pragma(classify_level=basic, topic={greeting, tests})
+_method greeting_test_case.test_say_hello()
+	_local a_greeting << greeting.new(:formal).say_hello(_false)
+
+	_self.assert_equals(a_greeting, "Hello")
+
+	_dynamic !output! << sw:internal_text_output_stream.new()
+
+	a_greeting << greeting.new(:informal).say_hello()
+
+	_self.assert_equals(a_greeting, "Hiya!")
+	_self.assert_equals(sw:!output!.write_string, sw:write_string("Hiya!", %newline))
+_endmethod
+$
+
+_method greeting_test_case.test_say_goodbye()
+	_local a_greeting << greeting.new(:formal).say_goodbye(_false)
+
+	_self.assert_equals(a_greeting, "Kind regards")
+
+	_dynamic !output! << sw:internal_text_output_stream.new()
+
+	a_greeting << greeting.new(:informal).say_hello()
+
+	_self.assert_equals(a_greeting, "See ya!")
+	_self.assert_equals(sw:!output!.write_string, sw:write_string("See ya!", %newline))
+_endmethod
+$

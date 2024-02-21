@@ -1,0 +1,9 @@
+greeting_tests layered_product
+
+title
+	Tests for greeting product
+end
+
+requires
+	munit
+end

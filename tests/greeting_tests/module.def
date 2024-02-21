@@ -1,0 +1,13 @@
+greeting_tests	1
+
+description
+	Tests the greeting module
+end
+
+requires
+	munit_base
+end
+
+tests_modules
+	greeting
+end
