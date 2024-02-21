@@ -1,4 +1,4 @@
-name: compile
+name: Compile mMojo
 
 on:
   push:
@@ -10,5 +10,9 @@ on:
 
 jobs:
   compile:
-    uses: krn-sebastiaan/mmojo-workflows/.github/workflows/compile.yml@main
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compile mMojo
+        uses: krn-sebastiaan/actions/compile@main
+        with:
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
